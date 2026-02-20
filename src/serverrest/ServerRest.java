@@ -34,7 +34,8 @@ public class ServerRest {
             HttpServer server = HttpServer.create(new InetSocketAddress(porta), 0);
             
             // Registra gli handler per gli endpoint
-           
+            server.createContext("/api/roulette/paridispari/post", new DaFarePostHandler());
+            server.createContext("/api/roulette/paridispari/get", new DaFareGetHandler());
             
             // Endpoint di benvenuto
             server.createContext("/", ServerRest::gestisciBenvenuto);
@@ -50,8 +51,8 @@ public class ServerRest {
             System.out.println("Porta: " + porta);
             System.out.println();
             System.out.println("Endpoint disponibili:");
-            System.out.println("  - POST: http://localhost:" + porta + "/DA FARE");
-            System.out.println("  - GET:  http://localhost:" + porta + "/DA FARE");
+            System.out.println("  - POST: http://localhost:" + porta + "/api/roulette/paridispari/post");
+            System.out.println("  - GET:  http://localhost:" + porta + "/api/roulette/paridispari/get");
             System.out.println("  - Info: http://localhost:" + porta + "/");
             System.out.println();
             System.out.println();
@@ -74,21 +75,18 @@ public class ServerRest {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         
         Map info = new HashMap<>();
-        info.put("messaggio", "Benvenuto alla Calcolatrice REST API");
+        info.put("messaggio", "Benvenuto alla Roulette API");
         info.put("versione", "2.0.0");
         info.put("tecnologia", "Java + GSON");
         
         Map endpoints = new HashMap<>();
-        endpoints.put("POST", "/api/calcola/post");
-        endpoints.put("GET", "/api/calcola/get?operando1=X&operando2=Y&operatore=OP");
+        endpoints.put("POST", "/api/roulette/paridispari/post");
+        endpoints.put("GET", "/api/roulette/paridispari/get?giocata=tipo&numero=num");
         info.put("endpoints", endpoints);
         
         Map operatori = new HashMap<>();
-        operatori.put("somma", "SOMMA o +");
-        operatori.put("sottrazione", "SOTTRAZIONE o -");
-        operatori.put("moltiplicazione", "MOLTIPLICAZIONE o * o X");
-        operatori.put("divisione", "DIVISIONE o /");
-        info.put("operatori_supportati", operatori);
+        operatori.put("giocata", "GIOCATA o g");
+        operatori.put("numero", "NUMERO o n");
         
         String jsonRisposta = gson.toJson(info);
         

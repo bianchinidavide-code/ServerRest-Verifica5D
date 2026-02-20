@@ -11,15 +11,14 @@ package serverrest;
 public class DaFareService {
     
     /**
-     * Esegue l'operazione matematica richiesta
      * 
-     * @param 
-     * @param 
-     * @param 
-     * @return 
+     * @param GIOCATA
+     * @param NUMERO
+     * @param VITTORIA
+     * @return VITTORIA
      * @throws IllegalArgumentException se ...
      */
-    public static double logicaDiCalcolo() 
+    public static Boolean logicaDiCalcolo() 
             throws IllegalArgumentException {
         
         // Controllo se i parametri passati sono validi
@@ -33,12 +32,20 @@ public class DaFareService {
             throw new IllegalArgumentException(
                     "Opzione non valida. Opzione deve essere DA FARE");
         }
-        return 0; // Placeholder, da sostituire con il risultato della logica di calcolo
+        return false;
     }
 
     // Metodo di validazione dei parametri (da implementare)
     private static boolean parametriValidi()
     {
+        
+        if((numero % 2)== 0){
+            
+        }
+        
+        if(giocata == "Dispari" && )
+        
+        
         return false;
     }
 }
