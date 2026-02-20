@@ -10,17 +10,20 @@ package serverrest;
  */
 public class DaFareService {
     
+    String giocata;
+    String numero;
+    Boolean vittoria;
+    
+    
     /**
      * 
-     * @param GIOCATA
-     * @param NUMERO
-     * @param VITTORIA
+     * @param giocata
+     * @param numero
+     * @param vittoria
      * @return VITTORIA
      * @throws IllegalArgumentException se ...
      */
-    public static Boolean logicaDiCalcolo() 
-            throws IllegalArgumentException {
-        
+    public Boolean logicaDiCalcolo(String giocata, int numero, Boolean vittoria) throws IllegalArgumentException {
         // Controllo se i parametri passati sono validi
                 if (!parametriValidi()) {
             throw new IllegalArgumentException("Operatore non può essere vuoto");
@@ -32,20 +35,43 @@ public class DaFareService {
             throw new IllegalArgumentException(
                     "Opzione non valida. Opzione deve essere DA FARE");
         }
-        return false;
+        return vittoria;
     }
 
     // Metodo di validazione dei parametri (da implementare)
-    private static boolean parametriValidi()
+    private boolean parametriValidi()
     {
         
-        if((numero % 2)== 0){
+        if(numero == 0){
+            
+            return false;
             
         }
         
-        if(giocata == "Dispari" && )
-        
-        
-        return false;
+        if(numero % 2 == 0){
+            
+            if("Pari".equals(giocata)){
+                
+                
+                return true;
+            }else{
+                
+                
+                return false;
+            }
+            
+        }else{
+            
+            if("Dispari".equals(giocata)){
+                
+                
+                return true;
+            }else{
+                
+                
+                return false;
+            }
+        }
     }
+
 }

@@ -26,6 +26,9 @@ import java.util.Map;
 
 public class DaFareGetHandler implements HttpHandler {
     
+    String giocata;
+    int numero;
+    
     // Istanza Gson configurata per pretty printing
     private final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -47,19 +50,22 @@ public class DaFareGetHandler implements HttpHandler {
             // Validazione parametri
             if (validazioneParametri(parametri)) {
                 inviaErrore(exchange, 400, 
-                    "Parametri mancanti. Necessari: operando1, operando2, operatore");
+                    "Parametri mancanti. Necessari: giocata, numero");
                 return;
             }
             
             // Parsing dei valori
             String giocata = parametri.get("giocata"); 
-            String numero = parametri.get("numero");
+            int numero = Integer.parseInt(parametri.get(0));
             
             // Esegue la logica di calcolo
-            Boolean vittoria = DaFareService.logicaDiCalcolo();
+            Boolean vittoria = DaFareService.logicaDiCalcolo(String giocata, int numero);
             
             // Crea l'oggetto risposta
             RouletteResponse response = new RouletteResponse(
+                    giocata,
+                    numero,
+                    vittoria
             );
             
             // GSON converte automaticamente l'oggetto Java in JSON
@@ -68,7 +74,7 @@ public class DaFareGetHandler implements HttpHandler {
             inviaRisposta(exchange, 200, jsonRisposta);
             
         } catch (NumberFormatException e) {
-            inviaErrore(exchange, 400, "Operandi non validi. Devono essere numeri");
+            inviaErrore(exchange, 400, "Giocata non valida");
         } catch (IllegalArgumentException e) {
             inviaErrore(exchange, 400, e.getMessage());
         } catch (Exception e) {
@@ -79,7 +85,30 @@ public class DaFareGetHandler implements HttpHandler {
     // Validazione dei parametri (da implementare)
     private boolean validazioneParametri(Map<String, String> parametri) {
         
-        return false;
+        if(numero % 2 == 0){
+            
+            if(giocata == "Pari"){
+                
+                
+                return true;
+            }else{
+                
+                
+                return false;
+            }
+            
+        }else{
+            
+            if(giocata == "Dispari"){
+                
+                
+                return true;
+            }else{
+                
+                
+                return false;
+            }
+        }
     }
     
     /**

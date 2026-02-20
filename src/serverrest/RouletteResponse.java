@@ -52,5 +52,11 @@ public class RouletteResponse {
     public void setVittoria(Boolean vittoria) {
         this.vittoria = vittoria;
     }
+
+    @Override
+    public String toString() {
+        return "RouletteResponse{" + "giocata=" + giocata + ", numero=" + numero + ", vittoria=" + vittoria + '}';
+    }
+    
     
 }
