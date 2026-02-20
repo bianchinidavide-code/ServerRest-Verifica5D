@@ -54,6 +54,7 @@ public class DaFareGetHandler implements HttpHandler {
             // Parsing dei valori
             
             
+            
             // Esegue la logica di calcolo
             double risultato = DaFareService.logicaDiCalcolo();
             
