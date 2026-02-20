@@ -8,11 +8,11 @@ package serverrest;
  *
  * @author delfo
  */
-public class DaFareService {
+public class RouletteService {
     
     String giocata;
-    String numero;
-    Boolean vittoria;
+    int numero;
+    static Boolean vittoria;
     
     
     /**
@@ -23,7 +23,7 @@ public class DaFareService {
      * @return VITTORIA
      * @throws IllegalArgumentException se ...
      */
-    public Boolean logicaDiCalcolo(String giocata, int numero, Boolean vittoria) throws IllegalArgumentException {
+    public Boolean logicaDiCalcolo(String giocata, int numero) throws IllegalArgumentException {
         // Controllo se i parametri passati sono validi
                 if (!parametriValidi()) {
             throw new IllegalArgumentException("Operatore non può essere vuoto");
@@ -42,7 +42,7 @@ public class DaFareService {
     private boolean parametriValidi()
     {
         
-        if(numero == 0){
+        if(numero == 0 || numero > 36 || numero < 0){
             
             return false;
             

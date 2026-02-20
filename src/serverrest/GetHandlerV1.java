@@ -24,7 +24,7 @@ import java.util.Map;
  */
 
 
-public class DaFareGetHandler implements HttpHandler {
+public class GetHandlerV1 implements HttpHandler {
     
     String giocata;
     int numero;
@@ -59,7 +59,7 @@ public class DaFareGetHandler implements HttpHandler {
             int numero = Integer.parseInt(parametri.get(0));
             
             // Esegue la logica di calcolo
-            Boolean vittoria = DaFareService.logicaDiCalcolo(String giocata, int numero);
+            Boolean vittoria = RouletteService.logicaDiCalcolo(giocata,numero);
             
             // Crea l'oggetto risposta
             RouletteResponse response = new RouletteResponse(
