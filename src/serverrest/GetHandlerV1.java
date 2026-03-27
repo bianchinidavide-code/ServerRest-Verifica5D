@@ -16,14 +16,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 /**
  *
  * @author delfo
  */
-
-
 public class GetHandlerV1 implements HttpHandler {
     
     String giocata;
@@ -56,29 +52,27 @@ public class GetHandlerV1 implements HttpHandler {
             
             // Parsing dei valori
             String giocata = parametri.get("giocata"); 
-            int numero = Integer.parseInt(parametri.get(0));
+            String numero = parametri.get("numero");
             
             // Esegue la logica di calcolo
-            Boolean vittoria = RouletteService.logicaDiCalcolo(giocata,numero);
+            boolean vittoria = RouletteService.logicaDiCalcolo(giocata, numero);
             
             // Crea l'oggetto risposta
             RouletteResponse response = new RouletteResponse(
-                    giocata,
-                    numero,
-                    vittoria
+                giocata,
+                numero,
+                String.valueOf(vittoria)
             );
             
-            // GSON converte automaticamente l'oggetto Java in JSON
             String jsonRisposta = gson.toJson(response);
-            
             inviaRisposta(exchange, 200, jsonRisposta);
             
         } catch (NumberFormatException e) {
-            inviaErrore(exchange, 400, "Giocata non valida");
+            inviaErrore(exchange, 400, "Il numero deve essere un intero");
         } catch (IllegalArgumentException e) {
             inviaErrore(exchange, 400, e.getMessage());
         } catch (Exception e) {
-            inviaErrore(exchange, 500, "Errore interno del server: " + e.getMessage());
+            inviaErrore(exchange, 500, "Errore interno: " + e.getMessage());
         }
     }
 
