@@ -52,7 +52,7 @@ public class ServerRest {
             System.out.println();
             System.out.println("Endpoint disponibili:");
             System.out.println("  - POST: http://localhost:" + porta + "/api/roulette/paridispari/post");
-            System.out.println("  - GET:  http://localhost:" + porta + "/api/roulette/paridispari/get");
+            System.out.println("  - GET:  http://localhost:" + porta + "/api/roulette/paridispari/get?giocata=Dispari&numero=9");
             System.out.println("  - Info: http://localhost:" + porta + "/");
             System.out.println();
             System.out.println();
@@ -81,12 +81,13 @@ public class ServerRest {
         
         Map endpoints = new HashMap<>();
         endpoints.put("POST", "/api/roulette/paridispari/post");
-        endpoints.put("GET", "/api/roulette/paridispari/get?giocata=tipo&numero=num");
+        endpoints.put("GET", "/api/roulette/paridispari/get?giocata=Dispari&numero=9");
         info.put("endpoints", endpoints);
         
-        Map operatori = new HashMap<>();
-        operatori.put("giocata", "GIOCATA o g");
-        operatori.put("numero", "NUMERO o n");
+        Map regole = new HashMap<>();
+        regole.put("regola_Importante", "Lo 0 perde sempre");
+        regole.put("valido", "Pari, Dispari");
+        regole.put("regole", "regole");
         
         String jsonRisposta = gson.toJson(info);
         
