@@ -9,69 +9,37 @@ package serverrest;
  * @author delfo
  */
 public class RouletteService {
-    
-    String giocata;
-    int numero;
-    static Boolean vittoria;
-    
-    
-    /**
-     * 
-     * @param giocata
-     * @param numero
-     * @param vittoria
-     * @return VITTORIA
-     * @throws IllegalArgumentException se ...
-     */
-    public Boolean logicaDiCalcolo(String giocata, int numero) throws IllegalArgumentException {
+
+       public static boolean logicaDiCalcolo(String giocata, String numeroStr) throws IllegalArgumentException {
+        
         // Controllo se i parametri passati sono validi
-                if (!parametriValidi()) {
-            throw new IllegalArgumentException("Operatore non può essere vuoto");
+        if (!parametriValidi(giocata, numeroStr)) {
+            throw new IllegalArgumentException("Parametri mancanti o non validi");
         }
         
         try {
+            int n = Integer.parseInt(numeroStr);
+            
+            // Logica documento: Il numero 0 perde sempre
+            if (n == 0) return false;
+            
+            if (giocata.equalsIgnoreCase("DISPARI")) {
+                return n % 2 != 0;
+            } else if (giocata.equalsIgnoreCase("PARI")) {
+                return n % 2 == 0;
+            } else {
+                throw new Exception();
+            }
             
         } catch (Exception e) {
             throw new IllegalArgumentException(
-                    "Opzione non valida. Opzione deve essere DA FARE");
+                    "Opzione non valida. La giocata deve essere PARI o DISPARI");
         }
-        return vittoria;
     }
 
-    // Metodo di validazione dei parametri (da implementare)
-    private boolean parametriValidi()
+    // Metodo di validazione dei parametri
+    private static boolean parametriValidi(String giocata, String numero)
     {
-        
-        if(numero == 0 || numero > 36 || numero < 0){
-            
-            return false;
-            
-        }
-        
-        if(numero % 2 == 0){
-            
-            if("Pari".equals(giocata)){
-                
-                
-                return true;
-            }else{
-                
-                
-                return false;
-            }
-            
-        }else{
-            
-            if("Dispari".equals(giocata)){
-                
-                
-                return true;
-            }else{
-                
-                
-                return false;
-            }
-        }
+        return giocata != null && !giocata.isEmpty() && numero != null && !numero.isEmpty();
     }
-
 }
